@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>REGISTRY | ALACRITY</title>
+    <style type="text/css">
+    ul {
+      list-style-type: none;
+    }
+    .clscroll {
+        height: 150px;
+        width: auto;
+        background-color: #f8f8ff;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+  </style>
+    <script type="text/javascript">
+        function callmebro() {
+            $("select").addClass("form-control");
+            $("input[type='text']").addClass("form-control");
+            $("input[type='email']").addClass("form-control");
+        }
+    </script>
+</head>
+<body onload="callmebro()">
+    {% if request.user.is_authenticated %}
+    <section id="auth-section">
+        <p>Logged-in User: <b>{{ request.user.username }}</b> <button type="button" class="btn btn-danger btn-sm" style="float: right;"><a href="{% url 'logout' %}" style="text-decoration: none;color: white;">Log-out</a></button>
+        <button type="button" class="btn btn-info btn-sm" style="float: right; margin-right: 5px;"><a href="{% url 'alacrity_index' %}" style="text-decoration: none;color: white;">Home</a></button></p>
+    </section>
+    {% endif %}
+    <h1 align="center">Welcome to Individual Registration Portal</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <form method="POST" action="#">
+                {% csrf_token %}
+                {% if form %}
+                {% for field in form.visible_fields %}
+                    {% if field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ field.errors }}</strong>
+                    </div>
+                    {% endif %}
+                    {% if field.label == "Registered events" %}
+                        {{ field.label_tag }}
+                        <div class="clscroll">
+                            {{ field }}
+                        </div>
+                    {% else %}
+                    {{ field.label_tag }}
+                    <div class="form-group">
+                    {{ field }}
+                    </div>
+                    {% endif %}    
+                {% endfor %}
+                {% endif %}
+                <button type="submit" class="btn btn-success btn-block">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

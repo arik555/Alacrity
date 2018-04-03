@@ -1,0 +1,79 @@
+.top_bar{background:#006400; padding: 5px 0;}
+.contact_info{color:#fff; font-size: 16px; padding-right: 1px     }
+.my_menu{margin-top:27px}
+.my_menu .navbar-default{ 
+navbar-default {
+    background-color: #F8F8F8;
+    border-color: #E7E7E7;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #777777;
+}
+
+
+}
+.my_menu .navbar-nav .active a{background:#006400; color:#fff; }
+.my_menu .navbar-nav li a:hover{background:#006400; color:#fff; }
+
+@media(max-width:1200px){
+	.my_menu .pull-right{float:none !important;}
+}
+.pull_left{text-decoration: none; }
+.image_logo{width: 300px; height:100px; border-style: solid; padding-bottom: 20px}
+
+.meow{width: 150px; height:150px; border-style: solid; padding-bottom: 20px}
+
+
+
+
+.logo_font{  font-family: 'Tangerine', 'Inconsolata', 'Droid Sans', serif; 
+  font-size: 38px; font-style: bold; color: #8B0000; text-orientation: button}
+@media( max-width: 603px){
+  .our_activities[class*=col-]{
+    margin-bottom: 25px;
+  
+}
+
+  .extra-jumbotron{
+  	color: #fff;
+  	background-image:url(a.jpg);
+
+  	background-size:100%;   }
+  	.image_donor{
+  		width: 60px; height: 60px; padding-right: 20px;padding-top: 10px;
+  	}
+
+  	.btn_register{
+  		padding-left: 110px;
+  		padding-top:10px;
+  		padding-bottom: 0.5px;
+
+  	}
+
+  	.request_pannel .rqst_pnl_header{
+  		background-color: #006400
+
+  	}
+
+    
+      .thumbnails a{
+        float: left;
+        width: 25%
+        padding-right:15px;
+        box-sizing: border-box;
+
+      }
+
+
+    
+.contact_sec{
+  padding-top: 500px;
+}
+
+    input[type="tel"] {
+  border: 1px solid #ddd;
+  padding: 4px 8px;
+}
+input[type="tel"]:focus {
+  border: 1px solid #000;
+}

@@ -1,0 +1,59 @@
+
+
+/* ----- Footer ----- */
+.footer-widget{
+    color:white;
+    margin-top: 55px;
+}
+
+
+footer .widget h4 {
+    margin-top: 20px;
+    font-family: 'Droid Sans', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 0 rgba(255,255,255,.7);
+}
+
+footer .widget p {
+    line-height: 24px;
+}
+
+footer .widget i {
+    padding-right: 7px;
+}
+footer{
+   margin-top:40px;
+   padding: 20px; 
+   background: black;
+   
+}
+
+footer h3 {
+    color: #dadada;
+    margin-bottom: 20px;
+}
+
+.footer-contact{
+    color: white;
+}
+
+
+/*Social Buttons */
+#social-icons{
+  font-size: 22px;
+}
+
+#social-icons .btn-group {
+    color: #55CBD2;
+    margin-right: 15px;
+}
+#social-icons .btn-group:hover {
+    color: #ffffff;
+}
+
+.copyright {
+    color: #fff;
+    padding: 20px 0px 10px 0px;
+    background-color: rgb(23, 23, 23);
+}

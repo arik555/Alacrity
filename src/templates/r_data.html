@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Home | Alacrity</title>
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+    <section id="auth-section">
+        <p>Logged-in User: <b>{{ request.user.username }}</b> <button type="button" class="btn btn-danger btn-sm" style="float: right;"><a href="{% url 'logout' %}" style="text-decoration: none;color: white;">Log-out</a></button>
+        <button type="button" class="btn btn-info btn-sm" style="float: right; margin-right: 5px;"><a href="{% url 'alacrity_index' %}" style="text-decoration: none;color: white;">Home</a></button></p>
+    </section>
+    {% endif %}
+    <button class="btn btn-primary" onclick="window.print()" style="margin-left: 10px;">Print</button>
+	<div class="container-fluid" style="margin-top: 10px;">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel-group">
+					{% for event in solo_events %}
+                    {% if event.u_events.all %}
+				<div class="panel panel-default">
+					<div class="panel-header">
+						<p style="font-weight: bold; font-size: 30px; padding: 7px 0px 1px 7px;">{{ event.event_name }}</p>
+                        <p style="font-size: 20px; padding-left: 5px;"> ~ is a Solo Event</p>
+					</div>
+					<div class="panel-footer">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>SL No.</th>
+                                    <th>Unique Id</th>
+									<th>Name</th>
+									<th>Institute Type</th>
+									<th>Institute Name</th>
+									<th>Email ID</th>
+									<th>Mobile No.</th>
+									<th>Date of Registration</th>
+                                    <th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for every in event.u_events.all %}
+								<tr>
+									<td>{{ forloop.counter }}</td>
+                                    <td><p>U_ALA261{{ every.id }}</p></td>
+									<td>{{ every.first_name }} <span></span> {{ every.last_name }}</td>
+									<td>{{ every.institute_type }}</td>
+									<td>{{ every.institute_name }}</td>
+									<td>{{ every.email }}</td>
+									<td>{{ every.mobile }}</td>
+									<td>{{ every.date }}</td>
+                                    <td><a href="/delete-user/{{ every.id }}">Delete</a></td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+                {% endif %}
+				{% endfor %}
+                {% for event in group_events %}
+                    {% if event.g_events.all %}
+                <div class="panel panel-default">
+                    <div class="panel-header">
+                        <p style="font-weight: bold; font-size: 30px; padding: 7px 0px 1px 7px;">{{ event.event_name }}</p>
+                        <p style="font-size: 20px; padding-left: 5px;"> ~ is a Group Event</p>
+                    </div>
+                    <div class="panel-footer">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>SL No.</th>
+                                    <th>Unique Id</th>
+                                    <th>Group Title</th>
+                                    <th>Leader Name</th>
+                                    <th>Other Members</th>
+                                    <th>Institute Type</th>
+                                    <th>Institute Name</th>
+                                    <th>Email ID</th>
+                                    <th>Mobile No.</th>
+                                    <th>Date of Registration</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for every in event.g_events.all %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td><p>G_ALA261{{ every.id }}</p></td>
+                                    <td>{{ every.title }}</td>
+                                    <td>{{ every.leader_name }}</td>
+                                    <td width="15%">{% for eachmem in every.members_as_list %}
+                                            {{ forloop.counter }}. {{ eachmem }}.<br>
+                                    {% endfor %}</td>
+                                    <td>{{ every.institute_type }}</td>
+                                    <td>{{ every.institute_name }}</td>
+                                    <td>{{ every.email }}</td>
+                                    <td>{{ every.mobile }}</td>
+                                    <td>{{ every.date }}</td>
+                                    <td><a href="/delete-group/{{ every.id }}">Delete</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+				</div> <!-- Panel Group  -->
+			</div>
+		</div> <!-- Row Class  -->
+	</div> <!-- Container  -->
+</body>
+</html>

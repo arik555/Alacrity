@@ -1,0 +1,2123 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/main.css' %}" rel="stylesheet">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/Modelstyle.css' %}">
+    <link rel="shortcut icon" href="{% static 'images/ico/favicon.ico' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'images/ico/apple-touch-icon-144-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/ico/apple-touch-icon-114-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'images/ico/apple-touch-icon-72-precomposed.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'images/ico/apple-touch-icon-57-precomposed.png' %}">
+    <title>SIEM  |  Alacrity-VI</title>
+    <script type="text/javascript">
+        function myFunc() {
+            $("input").addClass("form-control");
+            $("textarea").addClass("form-control");
+        }
+    </script>
+    <style type="text/css">
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            min-width: 160px;
+            z-index: 1;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+    </style>
+</head>
+<body onload="myFunc()">
+
+<header id="header" role="banner">      
+        <div class="main-nav">
+            <div class="container">
+                <div class="header-top">
+                    <div class="pull-right social-icons">
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                        <a href="#"><i class="fa fa-youtube"></i></a>
+                    </div>
+                </div>     
+                <div class="row">                   
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="{% url 'alacrity_index' %}">
+                            <img class="img-responsive" src="{% static 'images/logo.png' %}" alt="logo">
+                        </a>                    
+                    </div>
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">            
+                            <li class="scroll active"><a href="#home">Home</a></li>
+                            <li class="scroll"><a href="#explore">Explore</a></li>                         
+                            <li class="scroll"><a href="#event">Events</a></li>
+                            <li class="scroll"><a href="#about">About</a></li>
+                                                
+                            <li class="scroll"><a data-toggle="modal" data-target="#myModal" style="cursor: pointer;">Register</a></li>
+                            <li class="scroll"><a href="#contact">Contact</a></li>
+                            {% if request.user.is_authenticated %}
+                            
+                            <div class="dropdown">
+                              <li class="dropbtn scroll" style="margin-top: 30px;"><a href="#">Power Palette <span class="caret"></span></a></li>
+                              <div class="dropdown-content" style="margin-top: 30px;">
+                                <li class="scroll"><a href="{% url 'my_events' %}">Events DB</a></li>
+                                <li class="scroll"><a href="{% url 'reg_data' %}">Reg. Status</a></li>
+                                <li class="scroll"><a href="{% url 'register' %}">Add Admin</a></li>
+                                <li class="scroll"><a href="{% url 'logout' %}">Logout</a></li>
+                              </div>
+                            </div>
+                            {% else %}
+                            <li class="scroll"><a href="{% url 'login' %}">Admin</a></li>
+                            {% endif %}           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>                    
+    </header>
+
+
+<!-- ################# HOME SECTION ###########################-->
+<section id="home"> 
+    <div id="main-slider" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#main-slider" data-slide-to="0" class="active"></li>
+            <li data-target="#main-slider" data-slide-to="1"></li>
+            <li data-target="#main-slider" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="item active">
+                <img class="img-responsive" src="{% static 'images/slider/bg1.jpg' %}" alt="slider">                       
+                <div class="carousel-caption">
+                    <h2>siem welcomes you to alacrity-6 </h2>
+                    <h4>on 11th and 12th of april</h4>
+                    <a data-toggle="modal" data-target="#myModal" style="cursor: pointer;">register for our event <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="{% static 'images/slider/bg2.jpg' %}" alt="slider">   
+                <div class="carousel-caption">
+                    <h2>siem welcomes you to alacrity-6 </h2>
+                    <h4>on 11th and 12th of april</h4>
+                    <a data-toggle="modal" data-target="#myModal" style="cursor: pointer;">register for our event <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+            <div class="item">
+                <img class="img-responsive" src="{% static 'images/slider/bg3.jpg' %}" alt="slider">   
+                <div class="carousel-caption">
+                    <h2>siem welcomes you to alacrity-6 </h2>
+                    <h4>on 11th and 12th of april</h4>
+                    <a data-toggle="modal" data-target="#myModal" style="cursor: pointer;">register for our event <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>              
+        </div>
+    </div>      
+</section>
+    <!--/#home-->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 style="color: black;">Registration</h2>
+      </div>
+      <div class="modal-body">
+    <button type="button" class="btn btn-primary btn-lg" onclick="window.location.assign('{% url 'u_register' %}')">SOLO</button>
+    <button type="button" class="btn btn-primary btn-lg" onclick="window.location.assign('{% url 'g_register' %}')">GROUP</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<!-- ################# EXPLORE SECTION ###########################-->
+<section id="explore">
+    <div class="container">
+        <div class="row">
+            <div class="watch">
+                <img class="img-responsive" src="{% static 'images/watch.png' %}" alt="">
+            </div>              
+            <div class="col-md-4 col-md-offset-2 col-sm-5">
+                <h2>our next event in</h2>
+            </div>              
+            <div class="col-sm-7 col-md-6">                 
+                <ul id="countdown">
+                    <li>                    
+                        <span class="days time-font" id="demo1">00</span>
+                        <p>days </p>
+                    </li>
+                    <li>
+                        <span class="hours time-font" id="demo2">00</span>
+                        <p class="">hours </p>
+                    </li>
+                    <li>
+                        <span class="minutes time-font" id="demo3">00</span>
+                        <p class="">minutes</p>
+                    </li>
+                    <li>
+                        <span class="seconds time-font" id="demo4">00</span>
+                        <p class="">seconds</p>
+                    </li>               
+                </ul>
+            </div>
+        </div>
+    </div>
+</section><!--/#explore-->
+<!-- ################# EVENTS SECTION ###########################-->
+<section id="event">
+ <style type="text/css">
+        .Rulelabel {
+            font: normal 14px ;
+                font-style: normal;
+                font-weight: lighter;
+        }
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-9">
+                <div id="event-carousel" class="carousel slide" data-interval="false">
+                    <h2 class="heading">EVENTS OF ALACRITY 6</h2>
+                    <a class="even-control-left" href="#event-carousel" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+                    <a class="even-control-right" href="#event-carousel" data-slide="next"><i class="fa fa-angle-right"></i></a>
+                    <div class="carousel-inner">
+    <!--################################### CSE TECHNICAL ######################################-->
+                    
+                        <div class="item">
+                            <h3 class="heading">Technical Events</h3>
+                                <div class="row">
+                                <h3 align="center">+Computer Science</h3>   </br>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\CS\LOGIC.JPG' %}" alt="event-image">
+                                            <h5 align="center"> 1.GO LOGIC</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="lightbox-csGo">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\CS\cs quiz.JPG' %}" alt="event-image">
+                                            <h5 align="center">2. COMPUTER QUIZ</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="csQuiz">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\CS\crypt.JPG' %}" alt="event-image">
+                                            <h5 align="center">3. CRYPTOGRAPHY</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="crypt">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+<!--##################################### CE TECHNICAL ######################################### -->
+
+                        <div class="item">
+                            <h3 class="heading">Technical Events</h3>
+                                <div class="row">
+                                <h3 align="center">+Civil Engineering</h3>  </br>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\CE\Bridge.JPG' %}" alt="event-image">
+                                            <h5 align="center">1. Bridge It</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="bridgeIt">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\CE\r.JPG' %}" alt="event-image">
+                                            <h5 align="center">2. Row Your Boat</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="RBoat">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\CE\slab.png' %}" alt="event-image">
+                                            <h5 align="center">3. Slab Design</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="slab">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\CE\qqq.png' %}" alt="event-image">
+                                            <h5 align="center">4. CE Quiz</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="cquiz">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+<!-- ############################_ME TECHNICAL ########################################      -->
+                    
+
+                        <div class="item">
+                            <h3 class="heading">Technical Events</h3>
+                                <div class="row">
+                                <h3 align="center">+Mechanical Engineering</h3> </br>
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\ME\Robo.JPG' %}" alt="event-image">
+                                            <h5 align="center">1. Carpentry</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="carp">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\ME\weld.JPG' %}" alt="event-image">
+                                            <h5 align="center">2. Welding</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="weld">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\ME\m.GIF' %}" alt="event-image">
+                                            <h5 align="center">3. Projection Using AUTO-CAD</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="cad">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+                                        <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\ME\mmm.png' %}" alt="event-image">
+                                            <h5 align="center">4. ME QUIZ</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="mquiz">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+<!--###########################_ECE TECHNICAL_###################################### -->
+                    
+
+                        <div class="item">
+                            <h3 class="heading">Technical Events</h3>
+                                <div class="row">
+                                <h3 align="center">+Electronics & Communication Engineering</h3>    </br>
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\ECE\m.JPG' %}" alt="event-image">
+                                            <h5 align="center">1. Model Demonstration</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Demonst" for="Robo">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\ECE\c.PNG' %}" alt="event-image">
+                                            <h5 align="center">2.Electronic Circuit Design Challenge</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="circuit">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\ECE\eeee.PNG' %}" alt="event-image">
+                                            <h5 align="center">2.ECE QUIZ</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="ecequiz">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+<!-- ################################_EE TECHNICAL__#####################################  -->
+
+                        <div class="item">
+                            <h3 class="heading">Technical Events</h3>
+                                <div class="row">
+                                <h3 align="center">+Electrical Engineering</h3> </br>
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\EE\ww.JPG' %}" alt="event-image">
+                                            <h5 align="center">1. EE QUIZ</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Demonst" for="equiz">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\EE\ccc.jpg' %}" alt="event-image">
+                                            <h5 align="center">2. Wire Sprint</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="ws">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Technical\EE\p.jpg' %}" alt="event-image">
+                                            <h5 align="center">3. Project Display</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="pd">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+<!--####################################### CULTURAL EVENTS #####################################-->
+                    
+                        <div class="item active">
+                            <h3 class="heading">CULTURAL</h3>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Cultural/Rock_Band.png' %}" alt="event-image">
+                                            <h5 align="center"> Beat Contest</h5>
+                                            <!--<label  align="center" class="Rulelabel" for="lightbox-1">Music</label>-->
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="lightbox-1">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Cultural/Photo.JPG' %}" alt="event-image">
+                                            <h5 align="center">2. Photo Breifing</h5>
+                                        <h6 align="center" ><label  align="center" class="Rulelabel" for="photo">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/jam.JPG' %}" alt="event-image">
+                                            <h5 align="center">3. Jam</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="jam">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Cultural/shirt.JPG' %}" alt="event-image">
+                                            <h5 align="center">4. Tshirt Design</h5>
+                                        <h6 align="center" ><label  align="center" class="Rulelabel" for="tshirt">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Cultural/ADMAD.JPG' %}" alt="event-image">
+                                            <h5 align="center">5. ADMAD</h5>
+                                        <h6 align="center" ><label  align="center" class="Rulelabel" for="admad">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Cultural/Dota.JPG' %}" alt="event-image">
+                                            <h5 align="center">6. Dota 2</h5>
+                                        <h6 align="center" ><label  align="center" class="Rulelabel" for="dota">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/song.JPG' %}" alt="event-image">
+                                            <h5 align="center">7. Solo Song</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="song">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Cultural/Dance.JPG' %}" alt="event-image">
+                                            <h5 align="center">8. Dance</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="dance">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/Quiz.JPG' %}" alt="event-image">
+                                            <h5 align="center">9. Quiz</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="quiz">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/FF.JPG' %}" alt="event-image">
+                                            <h5 align="center">10. Flip Flop</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="flipflop">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/Fpaint.JPG' %}" alt="event-image">
+                                            <h5 align="center">11.Face Painting</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="face">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/Antr.PNG' %}" alt="event-image">
+                                            <h5 align="center">12. Antrakshi</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="antrakshi">Rules</label></h6>
+                                        </div>
+                                    </div>-->
+                                    
+                                    
+                                </div>
+                            </div>
+                            
+                            
+    <!-- ########################### CULTURAL EVENTS PART 2 ##########################################-->                         
+                            <div class="item">
+                                <h3 class="heading">Cultural</h3>
+                                <div class="row"> 
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/Debate.png' %}" alt="event-image">
+                                            <h5 align="center">13. Debate</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="debate">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="single-event">
+                                            <img class="img-responsive" src="{% static 'images/event/Cultural/Sktch.jpg' %}" alt="event-image">
+                                            <h5 align="center">14. Sketching</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="sketch">Rules</label></h6>
+                                        </div>
+                                    </div>
+                                        <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/Comedy.JPG' %}" alt="event-image">
+                                            <h5 align="center">15. Stand-up Comedy</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="comedy">View More</label></h6>
+                                        </div>
+                                    </div>
+                                    
+                                        <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/Photography.JPG' %}" alt="event-image">
+                                            <h5 align="center">16. Photography</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="photoG">Rules</label></h6>
+                                        </div>
+                                    </div>
+
+                                        <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/Bart.JPG' %}" alt="event-image">
+                                            <h5 align="center">17. Blind Art</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="blind">Rules</label></h6>
+                                        </div>
+                                       </div>   
+                                       
+                                       <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/mr.JPG' %}" alt="event-image">
+                                            <h5 align="center">18. Mr. & Mrs. Alacrity</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="Mr.Ala">Rules</label></h6>
+                                        </div>
+                                       </div>       
+                                       
+                                       <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/s.png' %}" alt="event-image">
+                                            <h5 align="center">19. Selfi Contest</h5>
+                                            <h6 align="center" ><label  align="center" class="" for="selfi">Rules</label></h6>
+                                        </div>
+                                       </div>
+
+                                          <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/rc.JPG' %}" alt="event-image">
+                                            <h5 align="center">20. Solve Rubics </h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="cube">Rules</label></h6>
+                                        </div>
+                                       </div>
+
+                                         <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/Tallent.JPG' %}" alt="event-image">
+                                            <h5 align="center">21. Guest Band</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="band">View More</label></h6>
+                                        </div>
+                                       </div>
+
+                                          <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/un.JPG' %}" alt="event-image">
+                                            <h5 align="center">22. Unpiugged</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="unplugg">Rules</label></h6>
+                                            
+                                        </div>
+                                       </div>
+
+                                         <div class="col-sm-2">
+                                        <div class="single-event">
+                                        <img class="img-responsive" src="{% static 'images/event/Cultural/Fshow.JPG' %}" alt="event-image">
+                                            <h5 align="center">23. FASHION SHOW</h5>
+                                            <h6 align="center" ><label  align="center" class="Rulelabel" for="fasion">Rules</label></h6>
+                                        </div>
+                                       </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="guitar">
+            <img class="img-responsive" src="{% static 'images/guitar.png' %}" alt="guitar">
+        </div>
+    </div>          
+</div>
+</section>
+<!-- ################# ABOUT SECTION ###########################-->
+    <section id="about">
+        <div class="guitar2">               
+            <img class="img-responsive" src="{% static 'images/guitar2.jpg' %}" alt="guitar">
+        </div>
+        <div class="about-content">                 
+                    <h2>About Alacrity</h2>
+                    <p>Alacrity- A Feast of SIEM: The first ever Alacrity was held on 23rd & 24th February 2013 in SIEM premises.
+                    14 academic & technical colleges from West Bengal & Sikkim became the part of this big extravaganza of this region. 
+                    Popular Sufi band RAETH was a prime attraction of Alacrity 2013</p>
+                    <a href="#" class="btn btn-primary">View Date & Place <i class="fa fa-angle-right"></i></a>
+                
+        </div>
+</section>
+<!-- ################# Sponser SECTION ###########################-->
+<section id="sponsor">
+    <div id="sponsor-carousel" class="carousel slide" data-interval="false">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-10">
+                    <h2>Sponsors</h2>           
+                    <a class="sponsor-control-left" href="#sponsor-carousel" data-slide="prev"><i class="fa fa-angle-left"></i></a>
+                    <a class="sponsor-control-right" href="#sponsor-carousel" data-slide="next"><i class="fa fa-angle-right"></i></a>
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <ul>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor1.png' %}" alt=""></a></li>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor2.png' %}" alt=""></a></li>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor3.png' %}" alt=""></a></li>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor4.png' %}" alt=""></a></li>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor5.png' %}" alt=""></a></li>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor6.png' %}" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="item">
+                            <ul>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor6.png' %}" alt=""></a></li>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor5.png' %}" alt=""></a></li>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor4.png' %}" alt=""></a></li>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor3.png' %}" alt=""></a></li>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor2.png' %}" alt=""></a></li>
+                                <li><a href="#"><img class="img-responsive" src="{% static 'images/sponsor/sponsor1.png' %}" alt=""></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>              
+        </div>
+        <div class="light">
+            <img class="img-responsive" src="{% static 'images/light.png' %}" alt="">
+        </div>
+    </div>
+</section>
+<!-- ################# Contact SECTION ###########################-->
+<section id="contact">
+    <div class="contact-section">
+        <div class="ear-piece">
+            <img class="img-responsive" src="{% static 'images/ear-piece.png' %}" alt="">
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-sm-offset-4">
+                    <div class="contact-text">
+                        <h3>Contact</h3>
+                        <address>
+                            E-mail: siemalacrity06@gmail.com<br>
+                            Mob No: +91 87687 25624<br>
+                            Phone: 0354 2258461
+                        </address>
+                    </div>
+                    <div class="contact-address">
+                        <h3>Contact</h3>
+                        <address>
+                            Surendra Institute of Engineering and Management,<br>
+                            Dhukuria,<br>
+                            New Chamta, Siliguri<br>
+                            West Bengal
+                        </address>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div id="contact-section">
+                        <h3>Send a message</h3>
+                        <div class=" alert-success" style="display: none"></div>
+                        <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="#">
+                            {% csrf_token %}
+                            {% if form %}
+                            {% for field in form %}
+                                {{ field.label_tag }}
+                                <div class="form-group">
+                                    {{ field }}
+                                </div>
+                            {% endfor %}
+                            {% endif %}                        
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary pull-right">Send</button>
+                            </div>
+                        </form>        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>      
+</section>
+<!-- ################# RULES DIFINITION SECTION ###########################-->
+<!--_Rules cse GO LOGIC_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="lightbox-csGo" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Go Logic</h2>
+      <label class="button" for="lightbox-csGo">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>C O M I N G   S O O N!!! <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+C O M I N G   S O O N!!!
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="lightbox-csGo">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="lightbox-csGo"></label>
+</aside>
+
+<!-- _Rules cse CS QUIZ_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="csQuiz" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">COMPUTER QUIZ</h2>
+      <label class="button" for="csQuiz">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>C O M I N G   S O O N!!! <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+C O M I N G   S O O N!!!
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="csQuiz">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="csQuiz"></label>
+</aside>
+
+<!-- _Rules cse CS crptography_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="crypt" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">CRYPTOGRAPHY</h2>
+      <label class="button" for="crypt">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>C O M I N G   S O O N!!! <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+C O M I N G   S O O N!!!
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="crypt">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="crypt"></label>
+</aside>
+
+<!-- _Rules cE BRIDGE IT_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="bridgeIt" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">BRIDGE IT</h2>
+      <label class="button" for="bridgeIt">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>CIVIL ENGINEERS are born to build and every structure in this world is the gift of civil engineering, from ancient time to this 21st century. One after another, skills with knowledge comes out with every new generation and we use it for our benefits, so this is the time to come up with your skills along with the knowledge of yours to make something innovative or somewhat modified structure of the existing ones. In this competitive world, competition is required and we have to compete.<b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            1. Maximum of four members are allowed in each group.</br></br>
+            2. Bridge should be at least 650mm and maximum 1000mm long (clear span) and 200mm high.</br></br>
+            3. Bridge must be no wider than 150mm. The weight of the bridge should not be more than 500 grams.</br></br>
+            4. The width of each support at each end is 20mm(horizontal support) with balsa wood / popsicle sticks (6mm x 12mm x1000mm).</br></br>
+            5. It should take minimum weight of 1 kg.</br></br>
+            6. Materials to be used are:-
+                  i. ) Balsa wood sticks/ Popsicle sticks (6mm x 12mm x1000mm) thick and you may take length as per requirement.
+                  ii. ) 1 tube of quick drying epoxy glue.
+                  iii. ) 1 piece of 5m long string to tie (if required).</br></br>
+            7. No extra string will be provided apart from mentioned length of string.</br></br>
+            8. The bridge will be loaded at the centre, so the wooden pieces must have enough space both vertically and horizontally so that the load hanger can be hanged well.</br></br>
+            9. While testing the bridge the load will be increased and it is tested to its extreme strength.</br></br>
+            10. Vertical support will be provided by us to hold the bridge at both ends.</br></br>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="bridgeIt">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="bridgeIt"></label>
+</aside>
+
+<!-- _Rules cse CE ROW BOAT_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="RBoat" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">ROW YOUR BOAT</h2>
+      <label class="button" for="RBoat">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>Participants need to build a boat in such a way that it can flow in water tank and sustain the weight placed in it. <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+        1. Build a boat that can sustain a minimum weight of an object (example Smartphone) in a water tank.</br></br>
+        2. Each team can have maximum 3 people.</br></br>
+        3. Time limit is 60 minutes.</br></br>
+        4. Materials provided are: - Ice cream sticks (100-120 nos.)
+            - Fevicol (1)
+            -Thread (2m long)
+            - Scissors (1 if needed).</br></br>
+        5. Using of any material other than those provided can lead to disqualification.</br></br>
+        6. Boat that can sustain maximum weight in water tank will be declared winner.</br></br>
+        7. No extra materials will be provided apart from mentioned quantity.</br></br>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="RBoat">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="RBoat"></label>
+</aside>
+
+<!-- _Rules CE SLAB DESIGN_ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="slab" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">SLAB DESIGN</h2>
+      <label class="button" for="slab">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>coming soon <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+        coming soon</br></br>
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="slab">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="slab"></label>
+</aside>
+
+<!-- _Rules CE QUIZ_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="cquiz" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">CIVIL QUIZ</h2>
+      <label class="button" for="cquiz">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>coming soon <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+        coming soon</br></br>
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="cquiz">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="cquiz"></label>
+</aside>
+
+<!-- _Rules ME CARPENTRY_ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="carp" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Carpentry</h2>
+      <label class="button" for="carp">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>coming sooon!!! <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+        coming sooon!!!
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="carp">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="carp"></label>
+</aside>
+
+<!-- _Rules ME WELDING_ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="weld" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">WELDING</h2>
+      <label class="button" for="weld">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>This event requires students to weld two metallic pieces using different welding processes (TIG/MIG/Arc welding/Gas welding). <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+        1. Mild steel plates of thickness 3mm will be supplied.</br></br>
+        2. Work piece preparation must be done by candidates.</br></br>
+        3. Total time for the job is one hour including work piece preparation and welding.</br></br>
+        4. After welding they can do extra work on the work piece like (grinding, filing, polishing etc.) for better looking.</br></br>
+        5 . The Participants will be decided on "first come first serve" basis of registration, so kindly register as soon as possible.</br></br>
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="weld">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="weld"></label>
+</aside>
+
+<!-- _Rules ME CAD_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="cad" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Projection Using AUTO-CAD</h2>
+      <label class="button" for="cad">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>This event requires students to draw complete orthographic/isometric projection using auto-CAD. <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+        1. Only auto-cad 2010 will be made available.</br></br>
+        2. One PC for one candidate will be provided by the college.</br></br>
+        3. Candidates are strictly forbidden from using the internet.</br></br>
+        4. The file should be saved in PDF format.</br></br>
+        5. Drawings should be in full scale.</br></br>
+        6. Units should be in millimeter.</br></br>
+        7. For orthographic, participants must use 1st angle projection method.</br></br>
+        8. Time limit is 30 mins.</br></br>
+        9. The Participants will be decided on "first come first serve" basis of registration, so kindly register as soon as possible.</br></br>
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="cad">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="cad"></label>
+</aside>
+
+<!--_Rules ME quiz_ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="mquiz" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">ME QUIZ</h2>
+      <label class="button" for="mquiz">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>coming soon <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+        coming quiz</br></br>
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="mquiz">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="mquiz"></label>
+</aside>
+
+<!-- _Rules ECE CIRCUIT DESIGN_ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="circuit" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Circuit Design Technique</h2>
+      <label class="button" for="circuit">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>Can you design a simple circuit? This competition is all about making an electronic circuit that is cost effective and efficient.The circuits will be very basic in nature and will not require any special knowledge to build. <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+        1. Participants will be given a circuit by lottery.</br></br>
+        2. Participants will be required to create the circuit design using a pen and paper.</br></br>
+        3. The circuit will be judged on the basis of the simplicity and cost effectiveness of the design.</br></br>
+        4. All requirements will be provided by the college.</br></br>
+        5. The total time for making the circuit will be 30 minutes which include designing the circuit design.</br></br>
+        6. Max. 3 members are allowed in each team.</br></br>
+        7. The Participants will be decided on "first come first serve" basis of registration, so kindly register as soon as possible.</br></br>
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="circuit">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="circuit"></label>
+</aside>
+
+<!-- _Rules ECE MODAL SHOW_ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="demonst" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Model Demonstration</h2>
+      <label class="button" for="demonst">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>Participants have to display the model based on (or related to) the following topics:Fire Alarm, Buggler, Smart Sensor, All the deivce using microprocessor and microcontroller, Any type of Security System, Power Supply Design, Super Heterodyne Reciever, Water Level Indicator, Seven Segment Display, Digital Sequential and Combinational Circuit, Robotics, Mobile Control Device using DTMF, Wireless Charger
+Apart from the above mentions topic any other electronics related device can be presented. <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+        1. The model should be prepared beforehand.</br></br>
+        2. Participants will be have to dispaly their models.</br></br>
+        3. The models will be judged on the basis of the simplicity, innovativity, practicalality and implementability of the design.</br></br>
+        4. Should be able to describe their model to the judges. </br></br>
+        5. The model should be within the topic. Each group should consist of minimum 3 and maximum 5.</br></br>
+        6. The Participants will be decided on "first come first serve" basis of registration, so kindly register as soon as possible.</br></br>
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="demonst">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="demonst"></label>
+</aside>
+
+<!-- _Rules ECE QUIZ_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="ecequiz" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">ECE QUIZ</h2>
+      <label class="button" for="ecequiz">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>ECE COMING SOON. <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+                ece coming soon</br></br>
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="ecequiz">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="ecequiz"></label>
+</aside>
+
+<!--_Rules EE QUIZ_-->
+
+
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="equiz" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">EE QUIZ</h2>
+      <label class="button" for="equiz">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>EE COMING SOON. <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+                ee coming soon</br></br>
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="equiz">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="equiz"></label>
+</aside>
+
+<!-- _Rules EE Wire Sprint_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="ws" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Wire Sprint</h2>
+      <label class="button" for="ws">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>A circuit diagram is a graphical representation of an electric circuit. Circuit diagrams are used for design construction and maintenance of electric and electronic equipments. In this Participants are asked to wire up a circuit. The circuits will be elementary. <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+                1.The circuit must be prepared within a given time i.e 5 mins and maximum no. of participants in each group is two (02).</br></br>
+                2. Participants wont be allowed to refer to anyone besides your group partner. </br></br>
+                3. Cell phones are strictly prohibited.</br></br>
+                4. All materials will be provided by the organiser.</br></br>
+                5. Different Circuit will provided as you go to the next round.</br></br>
+                6. Participants will be judged on the basis of time of completion and design, special points will be awarded for neat and tidy circuits.</br></br>
+                7. Components should be handled with care and are not be damaged.</br></br>
+                8. The Participants will be decided on "first come first serve" basis of registration, so kindly register as soon as possible.</br></br>
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="ws">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="ws"></label>
+</aside>
+
+<!-- _Rules EE Project Display_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="pd" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Project Displayt</h2>
+      <label class="button" for="pd">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>This event is a demostration event in which the students may display and demostrate their electronic based mini projects. They can pick any project from their curriculum as well as something innovative. <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+                1. The project should be prepared beforehand.</br></br>
+                2. Participants will be have to display their projects.</br></br>
+                3. The projects will be judged on the basis of the simplicity, innovativity, practicalality and implementability of the design.</br></br>
+                4. Should be able to describe their project to the judges. </br></br>
+                5. The project should be within the topic. Each group should consist of minimum 2 and maximum 3.</br></br>
+                6. The project can be either static or working.</br></br>
+                Participants will be decided on "first come first serve" basis of registration, so kindly register as soon as possible.</br></br>
+         </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="pd">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="pd"></label>
+</aside>
+
+<!--_Rules BEAT CONTEST_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="lightbox-1" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Rock Band</h2>
+      <label class="button" for="lightbox-1">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>Take one massive Guitar riff at thundering bass and drum lines, yelling vocal lines medieval lyrics, seasoned with teen anger; that is what rock music is all about. Its gotta be loud. Prepare yourself to be square dancing on a grinder performing the jam of your life. metal is more than music, its a lifestyle. Be a rebel for love of music and freedom. Lets ROCK ON!! <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+1. Entry Fee: Rs.1500(Each Group).</br></br>
+2. Explicit or offensive lyrics/gestures guarantee immediate expulsion from the stage.</br></br>
+3. The decision by the Judges and organizers will be final and binding.</br></br>
+4. Bands are encouraged to bring their own gear/add-ons. Only drum kit and sound arrangements will be provided by the organizers.</br></br>
+5. Time limit is 20 mins including the sound check.</br></br>
+6. Maximum 6 members are allowed each band.</br></br>
+7. Exciting cash prize for winners.(1st prize: Rs.5000, 2nd prize: Rs.2000).</br></br>
+      </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="lightbox-1">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="lightbox-1"></label>
+</aside>
+  <!-- _Rules Mr/Mrs Alacrity_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="Mr.Ala" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">MR. & MRS ALACRITY</h2>
+      <label class="button" for="Mr.Ala">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>coming soon <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+coming soom!!!11
+      </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="Mr.Ala">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="Mr.Ala"></label>
+</aside>
+  <!-- _Photo Breifing_-->
+
+  <aside class="lightbox">
+  <input type="checkbox" class="state" id="photo" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Photo Briefing</h2>
+      <label class="button" for="photo">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>coming soon <b> "</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+        coming soon
+    </br></br>
+      </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="photo">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="photo"></label>
+</aside>
+
+ <!-- _JAM RULES_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="jam" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">JAM</h2>
+      <label class="button" for="lightbox-1">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>JAM (JUST A MINUTE) is the ultimate test of one’s wit, presence of mind and above all the control of the mind over the mouth. Participants have to speak over a given topic for exactly one minute.</br></br>Do you have what it takes?"</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            1. Each participant would be given a topic (for e.g. name of an object or a situation depicted through a photo) on-the-spot on which, he/she has to speak for 1 minute continuously without any pause.</br></br>
+            2. Per college 2 students are allowed to participate.</br></br>
+            3. Different topics for different individuals will be allotted.</br></br>
+      </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="jam">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="jam"></label>
+</aside>
+  
+
+<!-- _T-Shirt Painting RULES__-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="tshirt" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">T-Shirt Painting</h2>
+      <label class="button" for="tshirt">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>A very simple way to decorate t-shirts and make them your own is to use stamps and fabric paint to create designs on them. To begin with, get some plain t-shirts for your kids to experiment on. Stamps can be bought at a store – wooden stamps with traditional designs on them are easily available in India. They come in a variety of sizes. Making stamps yourself is also very easy – they can be made with items that are readily available at home such as bubble wrap, tin containers of various shapes etc."</b></h4></br></br>
+     
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            1. Each team has to design a T-shirt.</br></br>
+            2. Only a white T-shirt, fabric colors(5 basic shades), brushes and other appropriate material will be provided by the organizers.</br></br>
+            3. Apart from usual painting, you can appropriately cut or stitch the t-shirt to showcase your innovation.(no accessories will be provided).</br></br>
+            4. The team can have minimum 2 members & maximum of 3 members.</br></br>
+            5. Theme will be given on the spot.</br></br>
+            6. Time allotted is 2 hours. Exceeding this time limit will lead to a deduction of marks.</br></br>
+      </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="tshirt">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="tshirt"></label>
+</aside>
+  
+
+<!--_AD MAD  RULES_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="admad" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">AD MAD</h2>
+      <label class="button" for="admad">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>AD MAD Show is an 'Advertisement Making Competition' for engineering and B School students to showcase their creativity in Marketing products and services. Its objective is to acquaint the students about promotional strategies in marketing through advertisements.<b>" </b></h4></br></br>
+     Bring out the creativity inside you and make an outstanding advertisement of your own. Be it hilarious or sensitive, be it just your creativity and ad sense.</br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+            1. It is a team event. Each team should have 4-5 members only.</br></br>
+            2. Topics would be provided on the spot.</br></br>
+            3. 5 minutes preparation time for each team.</br></br>
+            4. Time limit for the performing the advertisement is 1-2 minutes.
+            5. Participants shall be judged on the basis of spontaneity, content, adherence to the topic, on-stage presentation, coordination and overall appeal of the advertisement.</br></br>
+            6. The caution should be taken to refrain from displaying obscenity, violence, prejudice, defamation etc. in Advertisement.</br></br>
+            7. Decision of the judges will be final and binding.</br></br>
+      </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="admad">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="admad"></label>
+</aside>
+  
+
+<!-- _Solo Singing  RULES_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="song" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Solo Singing</h2>
+      <label class="button" for="song">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>In some ways, music is a lot like literature. It can be pleasing, enlightening, even life-changing. A great song, like a great book, affects the listener in unanticipated ways and resonates long after the music has ceased. And, if done well, both music and literature have a rhythm and tone unique to their authors; you would not confuse a passage from a Charles Dickens novel with one from a Harry Potter book, nor would you mistake a verse from "A Hard Day's Night" for one from a Lady Gaga song.<b>" </b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+            1. The participant has to perform any one song of his/her own choice. The song may be in any language.</br></br>
+            2. Any kind of pre-recorded music will not be allowed.</br></br>
+            3. The maximum time limit for the song would be 3 minutes.</br></br>
+            4. Maximum participant from each college must not exceed 3.</br></br>
+            5. Only one chance will be given per participant.</br></br>
+            6. Only one accompanying acoustic instrument is allowed. The participant must inform about the accompanying instrument (if any) beforehand. Every participant has to carry his/her own instrument.</br></br>
+            7. Judging will solely be done on the basis of vocals.</br></br>
+            8. Exceeding of time limit will result in penalty.</br></br>
+                  
+                  </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="song">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="song"></label>
+</aside>
+  
+
+<!--_Dance  RULES_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="dance" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">DANCE</h2>
+      <label class="button" for="dance">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>Competitive dance, in which a variety of theater dance styles, such as acro, ballet, jazz, hip-hop, lyrical, and tap, are permitted. Open competitions, that permit a wide variety of dance styles.<b>" </b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+            1. No Entry Fee for participation.</br></br>
+            2. No. of members in eadancech team: 6-14.</br></br>
+            3.The use of props and costumes will be included in the judging criteria.</br></br>
+            4. The music for the prelims must also be submitted separately to the organizers.</br></br>
+            5. Any pre-recorded or live music can be used during the performance.</br></br>
+            6. Participating team are at liberty to choose their own theme/form of dance.</br></br>
+            7. Maximum time limit: 5 minutes.</br></br>
+            8. Only one group per institute is allowed.</br></br>
+            9. The song should be submitted in a pen-drive beforehand to the co-odinators.</br></br>
+            11. Vulgar acts may lead to immediate disqualification.</br></br>
+            12. NO FIRE STUNTS, it may lead to immediate disqualification.</br></br>
+                  
+                  </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="dance">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="dance"></label>
+</aside>
+  
+
+<!-- _SELFIE Contest RULES_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="selfi" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">SELFI CONTEST</h2>
+      <label class="button" for="selfi">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>coming soom!!<b>" </b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+            coming soon</br></br>
+                  
+                  </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="selfi">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="selfi"></label>
+</aside>
+  
+
+<!-- __F/F  RULES__-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="flipflop" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">FLIP FLOP</h2>
+      <label class="button" for="flipflop">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>coming soom!!<b>" </b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+            1. Each participant would be given a topic on-the-spot on which, he/she has to speak for 2 minute for or against the topic and will have to change after the buzzer (if the participant is saying for the topic, after the buzzer he/she will have to say against the topic and vice versa).</br></br>
+2. Per college 2 students are allowed to participate.</br></br>
+3. Different topics for different individuals will be allotted.</br></br>
+                  
+                  </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="flipflop">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="flipflop"></label>
+</aside>
+  
+
+<!-- _Face Painting RULES_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="face" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Face Painting</h2>
+      <label class="button" for="face">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>What better way to paint then to do it on someone else's face! Lets bring out our talent by spreading colour to the human face and give it thier own personal artistic touch. Face painting is fun for any occasion, whether you're painting faces at a birthday party or preparing faces for Halloween. Face painting can be a hobby for some, or even a full-blown career for many talented artists. Whatever your goals are, the possibilities for exciting and original designs are as wide as your imagination!<b>" </b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+            1. Each team may consist of maximum of 3 participants.</br></br>
+            2. The participants will have to make a sketch relevant to the given topic/theme.</br></br>
+            3. The materials will be provided by the organizers.</br></br>
+            4. The time allotted to complete the sketch would be 2 hours at maximum.</br></br>
+            5. Higher weightage will be given to the painting skills and innovative usage.</br></br>
+                  
+                  </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="face">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="face"></label>
+</aside>
+  
+
+<!-- _Collage Making RULES__ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="college" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Collage Making</h2>
+      <label class="button" for="college">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>A collage is a work of art composed of numerous materials, such as paper, newsprint, photographs, ribbons or other objects attached to background support, such as plain paper. A collage can even be made with physical materials or electronic images, attaching them to a digital background.<b>" </b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+            1. A team of maximum of three members is allowed.</br></br>
+            2. A common theme will be provided to all on the same day.</br></br>
+            3. Each team is supposed to make a collage incorporating the theme given.</br></br>
+            4. Materials Provided - A2 sheet, abstract cuttings of magazines, blank sheets, newspapers, fevicol. </br></br>
+            5. No other material except that provided by the organizers will be permitted.</br></br>
+            6. Time allotted is 2 hours. Exceeding this time limit will lead to a deduction of marks.</br></br>
+            7. No other clippings and photos should be used.</br></br>
+            8. The use of brushes and crayons is strictly prohibited.</br></br>
+            9. Per College two team is allowed.</br></br>
+                  
+                  </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="college">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="college"></label>
+</aside>
+  
+
+<!--_UNPLUGGED RULES_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="unplugg" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">UNPLUGGED</h2>
+      <label class="button" for="unplugg">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>Unplugged session highlights the ability of the vocalist, the beauty and depth of the lyrics and last but not the least the ability of the instrument player.Unplugged is a more romanticized version of the song, in the sense, that there are absolutely no electric instruments, say electric guitar, bass or even kick drums. This version is much softer than the original one.</br> 
+     Now Its your turn to team up and participate in our first ever Unplugged compitition.<b>" </b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+            1. Participants can use any instrument of their choice.</br></br>
+            2. Any Instruments except drum kit will not be provided.</br></br>
+            3. Participants must have availability of the instruments in advance with the events organizers.</br></br>
+            4. Maximum 3-5 members are allowed per team.</br></br>
+            5. Participants will be given 7 minutes of performance time including setup time.Participants will be given 7 minutes of performance time including setup time.</br></br>
+                  </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="unplugg">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="unplugg"></label>
+</aside>
+  
+
+<!-- _FASHION SHOW_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="fasion" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">FASHION SHOW</h2>
+      <label class="button" for="fasion">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>Fashion is what you buy but style is what you do with it. If you are the one who wants to flaunts your individuality and finds different stylistic ways to do it. Join the fashion parade, the most sought after event to find stunning personality and exquisite charm.<b>" </b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+            11. Maximum number of participants: 18(9 boys and 9 girls).</br></br>
+            2. Minimum number of participants: 14(7 boys and 7 girls).</br></br>
+            3. Teams can take the help from professionals.</br></br>
+            4. Maximum time alloted for each team is 20 minutes.</br></br>
+            5. On exceeding time limit, negative points will be awarded.</br></br>
+            6. The teams are responsible for their own music and sequence.</br></br>
+            7. Music is to be submitted in a pen drive (preferably in mp3 format) beforehand.</br></br>
+            8. Water, fire and animal in any form will not be allowed on the stage or the ramp.</br></br>
+            9. The decision of the judges will be considered as the final one.</br></br>
+            11. Any form of vulgar show is prohibited.</br></br>
+                  </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="fasion">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="fasion"></label>
+</aside>
+  
+
+<!--_Quiz_ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="quiz" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">Quiz</h2>
+      <label class="button" for="quiz">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 ><b>" </b>People are constant learners, knowledge is endless. More importantly as a student, if a thrust for knowledge and answers is endless, participate in the quiz competition and show how well you manage your academic works with your extra-curricular activities. Prove your talents and push yourself further to your ulitmate comprehension. Participants will put their thinking caps on as they face off against each other to decide whos the real Quiz Guru. A test of their knowledge, a fight to the death, a massacre in this nerve racking event..... THE QUIZ<b>" </b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+            1. Each college team should consist of THREE members.</br></br>
+            2. The Quiz will be conducted in two rounds-Prelims followed by the Mains.</br></br>
+            3. Top 6 teams from the prelims will qualify for the mains.</br></br>
+            4. The decision of the QUIZ MASTER will be final and binding on all participants.</br></br>
+            5. Only 1 team per college is allowed.</br></br>
+                  </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="quiz">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="quiz"></label>
+</aside>
+  
+
+<!-- _DebTE RULES_ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="debate" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">DEBATE</h2>
+      <label class="button" for="debate">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 >"I've never in life learned anything from any man who had agreed with me." - Dudely Malone.</BR> <b>" </b>Prove your talents in speech and assertiveness in your words. In a competition where you formally present an argument in a discipline manner but only words with fire in its character shall echo throughout.<b>" </b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+                1. Debate will be conducted in 2 rounds.</br></br>
+                2. Round 1 : Constructive speech – 4 minutes each team.(Both the members should speak within 4 minutes).</br></br>
+                3. Round 2 : Rebuttal – 1minute for the questions and 2mins for answering.(Each team can question any one other team).</br></br>
+                4. Topic: Would be shared with the participants 2 days prior to the finale event.</br></br>
+                5. Whether the team will be speaking FOR or AGAINST the motion will be decided on the spot by taking Lots (Lottery).</br></br>
+                6. Each college team should consists of 2 members only.</br></br>
+                7. Each college can have only 1 team.</br></br>
+        </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="debate">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="debate"></label>
+</aside>
+  
+
+<!-- _Pencil Sketching_ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="sketch" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">PENCIL SKETCHING</h2>
+      <label class="button" for="sketch">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 > <b>" </b>In the sketching competition, the participants were encouraged to visualize the environment as well as on the current negative influences on the mother earth. It was conducted to encourage children so as to enhance their interest in the environment issues and protect the Mother Earth from all environment hazards.<b>"</b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+                1. Each college team may consist of max. Of 3 individual participants.</br></br>
+                2. The participants will have to make a drawing relevant to the given topic/theme.</br></br>
+                3. Only drawing sheet will be provided.</br></br>
+                4. The time allotted to complete the sketch would be 2 hours at maximum.</br></br>
+                5. Higher weightage will be given to the sketching skills and innovative usage.</br></br>
+        </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="sketch">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="sketch"></label>
+</aside>
+  
+
+<!-- _antrakshi_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="antrakshi" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">ANTAKSHARI</h2>
+      <label class="button" for="antrakshi">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 > <b>" </b>Antakshri is a spoken parlor game played in India, Bangladesh, Pakistan and Nepal. Each contestant sings the first verse of a (usually Bollywood) movie song that begins with the Hindustani consonant on which the previous contestants song selection ended.<b>"</b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+                1. Two teams per college are allowed.(3 members in each team).</br></br>
+                2. Rules will be explained to the participants before the event by the event coordinators/anchors.</br></br>
+        </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="antrakshi">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="antrakshi"></label>
+</aside>
+  
+
+<!--_STAND UP COMEDY_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="comedy" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">STAND UP COMEDY</h2>
+      <label class="button" for="comedy">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 > <b>" </b>COMING SOON!!<b>"</b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> COMING SOON!! </u></b> </h3></br>
+
+            
+                COMING SOON!!</br></br>
+        </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="comedy">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="comedy"></label>
+</aside>
+  
+
+<!-- _RUBICS CUBE_ -->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="cube" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">RUBICS CUBE</h2>
+      <label class="button" for="cube">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 > <b>" </b>COMING SOON!!<b>"</b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> COMING SOON!! </u></b> </h3></br>
+
+            
+                COMING SOON!!</br></br>
+        </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="cube">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="cube"></label>
+</aside>
+  
+
+<!-- _PHOTOGRAPHY_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="photoG" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">PHOTOGRAPHY</h2>
+      <label class="button" for="photoG">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 > <b>" </b>Event photography rarely allows for much artistic freedom. Most clients, especially if they are corporate, have specific moments or themes that need to be captured. They also tend to have a certain photo style in mind that fits with their company’s aesthetic. Some clients will even have a specific style guide for you to follow. In any case, it’s wise to research what kind of photographs your client has commissioned before, or what kinds of images are typical of that kind of event. Always ask the client for sample images of previous events. In every case, it’s always important to establish client expectations ahead of time so you can act accordingly.<b>"</b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+                COMING SOON!!</br></br>
+        </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="photoG">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="photoG"></label>
+</aside>
+  
+
+<!-- _blind art rules_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="blind" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">BLIND ART</h2>
+      <label class="button" for="blind">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 > <b>" </b>COMING SOON!!!<b>"</b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+                COMING SOON!!</br></br>
+        </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="blind">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="blind"></label>
+</aside>
+  
+
+<!-- _guest band_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="band" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">GUEST BAND</h2>
+      <label class="button" for="band">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 > <b>" </b>COMING SOON!!!<b>"</b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> COMING SOON!! </u></b> </h3></br>
+
+            
+                COMING SOON!!</br></br>
+        </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="band">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="band"></label>
+</aside>
+  
+
+<!-- _FACE PAINTING_-->
+
+<aside class="lightbox">
+  <input type="checkbox" class="state" id="face" />
+  <article class="content">
+    <header class="header">
+      <h2 class="h h3">FACE PAINTING</h2>
+      <label class="button" for="face">&times;</label>
+    </header>
+    <main class="main" >
+     </br> <h4 > <b>" </b>What better way to paint then to do it on someone else's face! Lets bring out our talent by spreading colour to the human face and give it thier own personal artistic touch. Face painting is fun for any occasion, whether you're painting faces at a birthday party or preparing faces for Halloween. Face painting can be a hobby for some, or even a full-blown career for many talented artists. Whatever your goals are, the possibilities for exciting and original designs are as wide as your imagination!<b>"</b></br></br>
+     
+      <p>
+     <h3 align="center"><b> <u> RULES & REGULATIONS </u></b> </h3></br>
+
+            
+                1. Each team may consist of maximum of 3 participants.</br></br>
+                2. The participants will have to make a sketch relevant to the given topic/theme.</br></br>
+                3. The materials will be provided by the organizers.</br></br>
+                4. The time allotted to complete the sketch would be 2 hours at maximum.</br></br>
+                5. Higher weightage will be given to the painting skills and innovative usage.</br></br>
+        </p>
+       <p>
+      
+      </p>
+    </main>
+    <footer class="footer">
+      <button class="button" type="button">Do something</button>
+      <label class="button" for="face">Close</label>
+    </footer>
+  </article>
+  <label class="backdrop" for="face"></label>
+</aside>
+
+<!-- ################# RULES SECTION ENDS HERE. ###########################-->
+
+<footer id="footer"> <!-- ################# Footer SECTION ###########################-->
+    <div class="container">
+        <div class="text-center">
+                 
+        </div>
+    </div>
+</footer>
+    <!--/#footer-->
+  
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/smoothscroll.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.parallax.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.scrollTo.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.nav.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<script type="text/javascript" src="{% static 'main.js' %}"></script>
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("Apr 11, 2018 10:00:00").getTime();
+
+// Update the count down every 1 second
+var countdownfunction = setInterval(function() {
+
+    // Get todays date and time
+    var now = new Date().getTime();
+    
+    // Find the distance between now an the count down date
+    var distance = countDownDate - now;
+    
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+    // Output the result in an element with id="demo"
+    document.getElementById("demo1").innerHTML = days;
+    document.getElementById("demo2").innerHTML =hours;
+    document.getElementById("demo3").innerHTML = minutes;
+    document.getElementById("demo4").innerHTML = seconds;
+    
+    // If the count down is over, write some text 
+    if (distance < 0) {
+        clearInterval(countdownfunction);
+        document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+}, 1000);
+</script>
+</body>
+</html>

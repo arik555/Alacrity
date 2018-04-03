@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Home | Alacrity</title>
+    <style type="text/css">
+        .panel {
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    {% if request.user.is_authenticated %}
+    <section id="auth-section">
+        <p>Logged-in User: <b>{{ request.user.username }}</b> <button type="button" class="btn btn-danger btn-sm" style="float: right;"><a href="{% url 'logout' %}" style="text-decoration: none;color: white;">Log-out</a></button>
+        <button type="button" class="btn btn-info btn-sm" style="float: right; margin-right: 5px;"><a href="{% url 'alacrity_index' %}" style="text-decoration: none;color: white;">Home</a></button></p>
+    </section>
+    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-body bg-info"><h2 class="panel-title">Registered Events:</h2></div>
+                    <div class="panel-footer">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>SL No.</th>
+                                    <th>Name</th>
+                                    <th>Cost</th>
+                                    <th>Type</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for obj in queryset %}    
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ obj.event_name }}</td>
+                                    <td>Rs. {{ obj.event_cost }}.00/-</td>
+                                    <td>
+                                        {% if obj.event_reg_type == "1" %}
+                                            Solo Event
+                                        {% else %}
+                                            Group Event
+                                        {% endif %}
+                                    </td>
+                                    <td><a href="/delete-event/{{ obj.id }}">Delete</a></td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-warning btn-lg"><a href="{% url 'add_event' %}" style="text-decoration: none;color: white;">Add Event</a></button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
