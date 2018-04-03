@@ -1,8 +1,1 @@
-Set-ExecutionPolicy RemoteSigned
-
-########################################################################
-
-Username: suman
-Password: banik1234
-
-########################################################################
+Run this command in powershell before anything you do: Set-ExecutionPolicy RemoteSigned
